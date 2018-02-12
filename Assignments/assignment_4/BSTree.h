@@ -15,10 +15,12 @@
 //			  - print the tree
 //****************************************************************************
 
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
+using namespace std;
 
 struct node
 {
@@ -41,7 +43,7 @@ struct node
 
 class BSTree
 {
-  private:
+private:
 	node *root;
 
 	//************************************************************************
@@ -54,7 +56,7 @@ class BSTree
 	//		This method is overloaded to distinguish with the public method.
 	//************************************************************************
 	int count(node *root);
-	
+
 	//************************************************************************
 	// Name: insert
 	// Parameter: 2 pointers to nodes(pass by reference)
@@ -75,7 +77,7 @@ class BSTree
 	//		prints a node's data and its children.
 	//************************************************************************
 	void print_node(node *n, string label = "");
- 
+
 	//************************************************************************
 	// Name: minValueNode
 	// Parameter: pointer to node
@@ -124,7 +126,7 @@ class BSTree
 	// 		Print nodes at a given level.
 	//************************************************************************
 	void printGivenLevel(node *root, int level);
-	
+
 	//************************************************************************
 	// Name: GraphVizGetIds
 	// Parameter: pointer to node, ofstream(pass by reference)
@@ -152,8 +154,8 @@ class BSTree
 	//************************************************************************
 	void GraphVizMakeConnections(node *nodePtr, ofstream &VizOut);
 
-  public:
-  
+public:
+
 	//************************************************************************
 	// Name: BSTree
 	// Parameter: none
