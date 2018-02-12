@@ -49,5 +49,6 @@ int main()
 	B.printLevelOrder();
 
 	B.GraphVizOut("after.txt");
+	system("pause");
 	return 0;
 }
