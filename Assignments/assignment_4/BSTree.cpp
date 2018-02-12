@@ -34,10 +34,10 @@ int BSTree::count(node *root)
 		return 0;
 	}
 	else
-		{
-			return 1 + count(root->left) + count(root->right);
-		}
+	{
+		return 1 + count(root->left) + count(root->right);
 	}
+}
 
 //************************************************************************
 // Name: insert
@@ -75,7 +75,7 @@ void BSTree::insert(node *&root, node *&temp)
 // Description:
 //		prints a node's data and its children.
 //************************************************************************
-void BSTree::print_node(node *n, string label = "")
+void BSTree::print_node(node *n, string label)
 {
 	if (label != "")
 	{
@@ -99,7 +99,7 @@ void BSTree::print_node(node *n, string label = "")
 		cout << "\t\\-->[R][null]\n";
 	}
 }
- 
+
 //************************************************************************
 // Name: minValueNode
 // Parameter: pointer to node
@@ -148,7 +148,7 @@ node* BSTree::minValueNode(node *root)
 //		  then replace the node with its successor / predecessor.
 //		This method is overloaded to distinguish with the public method.
 //************************************************************************
-node* BSTree::*deleteNode(node *&root, int key)
+node *BSTree::deleteNode(node *&root, int key)
 {
 	if (!root)
 	{
@@ -266,12 +266,12 @@ void BSTree::GraphVizGetIds(node *nodePtr, ofstream &VizOut)
 	{
 		GraphVizGetIds(nodePtr->left, VizOut);
 		VizOut << "node" << nodePtr->data
-			   << "[label=\"" << nodePtr->data << "\\n"
-			   //<<"Add:"<<nodePtr<<"\\n"
-			   //<<"Par:"<<nodePtr->parent<<"\\n"
-			   //<<"Rt:"<<nodePtr->right<<"\\n"
-			   //<<"Lt:"<<nodePtr->left<<"\\n"
-			   << "\"]" << endl;
+			<< "[label=\"" << nodePtr->data << "\\n"
+			//<<"Add:"<<nodePtr<<"\\n"
+			//<<"Par:"<<nodePtr->parent<<"\\n"
+			//<<"Rt:"<<nodePtr->right<<"\\n"
+			//<<"Lt:"<<nodePtr->left<<"\\n"
+			<< "\"]" << endl;
 		if (!nodePtr->left)
 		{
 			NullCount++;
@@ -305,192 +305,190 @@ void BSTree::GraphVizMakeConnections(node *nodePtr, ofstream &VizOut)
 		GraphVizMakeConnections(nodePtr->left, VizOut);
 		if (nodePtr->left)
 			VizOut << "node" << nodePtr->data << "->"
-				   << "node" << nodePtr->left->data << endl;
+			<< "node" << nodePtr->left->data << endl;
 		else
 		{
 			NullCount++;
 			VizOut << "node" << nodePtr->data << "->"
-				   << "nnode" << NullCount << endl;
+				<< "nnode" << NullCount << endl;
 		}
-			if (nodePtr->right)
+		if (nodePtr->right)
 			VizOut << "node" << nodePtr->data << "->"
-				   << "node" << nodePtr->right->data << endl;
+			<< "node" << nodePtr->right->data << endl;
 		else
 		{
 			NullCount++;
 			VizOut << "node" << nodePtr->data << "->"
-				   << "nnode" << NullCount << endl;
+				<< "nnode" << NullCount << endl;
 		}
-			GraphVizMakeConnections(nodePtr->right, VizOut);
+		GraphVizMakeConnections(nodePtr->right, VizOut);
 	}
 }
 
-public:
- 
-//************************************************************************
-// Name: BSTree
-// Parameter: none
-// Returns: none
-// Called by: upon creation of an object
-// Description:
-// 		Constructor
-//************************************************************************
-BSTree::BSTree()
-{
-	root = NULL;
-}
-
-//************************************************************************
-// Name: ~BSTree
-// Parameter: none
-// Returns: none
-// Called by: upon destruction of an object
-// Description:
-// 		Destructor
-//************************************************************************
-BSTree::~BSTree()
-{
-}
-
-//************************************************************************
-// Name: count
-// Parameter: none
-// Returns: int
-// Called by: public
-// Description:
-//		Counts the number of nodes.
-//		This method is overloaded to distinguish with the private method.
-//************************************************************************
-int BSTree::count()
-{
-	return count(root);
-}
-
-//************************************************************************
-// Name: insert
-// Parameter: int
-// Returns: none
-// Called by: public
-// Description:
-//		inserts a node.
-//		This method is overloaded to distinguish with the private method.
-//************************************************************************
-void BSTree::insert(int x)
-{
-	node *temp = new node(x);
-	insert(root, temp);
-}
-
-//************************************************************************
-// Name: deleteNode
-// Parameter: int
-// Returns: none
-// Called by: public
-// Description:
-//		deletes a node with following rules:
-//		- if a node has no child, simply deletes itself.
-//		- if a node has only left child, it bypasses to the left child.
-//		- if a ndoe has only right child, it bypasses to the right child.
-//		- if a node has both children, look for its successor / predecessor
-//		  then replace the node with its successor / predecessor.
-//		This method is overloaded to distinguish with the private method.
-//************************************************************************
-void BSTree::deleteNode(int key)
-{
-	root = deleteNode(root, key);
-}
-
-//************************************************************************
-// Name: minValue
-// Parameter: none
-// Returns: none
-// Called by: public
-// Description:
-//		prints a successor of root.
-//		if a successor does not exist, then prints a predecessor of root.
-//		if neither successor and predecessor do not exist, prints root.
-//************************************************************************
-void BSTree::minValue()
-{
-	print_node(minValueNode(root), "minVal");
-}
-
-//************************************************************************
-// Name: height
-// Parameter: int
-// Returns: int
-// Called by: public
-// Description:
-// 		returns the height of the tree.
-//		This method is overloaded to distinguish with the private method.
-//************************************************************************
-int BSTree::height(int key = -1)
-{
-	if (key > 0)
+	//************************************************************************
+	// Name: BSTree
+	// Parameter: none
+	// Returns: none
+	// Called by: upon creation of an object
+	// Description:
+	// 		Constructor
+	//************************************************************************
+	BSTree::BSTree()
 	{
-		//find node
+		root = NULL;
 	}
-	else
-	{
-		return height(root);
-	}
-	return 0;
-}
 
-//************************************************************************
-// Name: top
-// Parameter: none
-// Returns: int
-// Called by: public
-// Description:
-// 		returns the data of the root.
-//************************************************************************
-int BSTree::top()
-{
-	if (root)
-		return root->data;
-	else
+	//************************************************************************
+	// Name: ~BSTree
+	// Parameter: none
+	// Returns: none
+	// Called by: upon destruction of an object
+	// Description:
+	// 		Destructor
+	//************************************************************************
+	BSTree::~BSTree()
+	{
+	}
+
+	//************************************************************************
+	// Name: count
+	// Parameter: none
+	// Returns: int
+	// Called by: public
+	// Description:
+	//		Counts the number of nodes.
+	//		This method is overloaded to distinguish with the private method.
+	//************************************************************************
+	int BSTree::count()
+	{
+		return count(root);
+	}
+
+	//************************************************************************
+	// Name: insert
+	// Parameter: int
+	// Returns: none
+	// Called by: public
+	// Description:
+	//		inserts a node.
+	//		This method is overloaded to distinguish with the private method.
+	//************************************************************************
+	void BSTree::insert(int x)
+	{
+		node *temp = new node(x);
+		insert(root, temp);
+	}
+
+	//************************************************************************
+	// Name: deleteNode
+	// Parameter: int
+	// Returns: none
+	// Called by: public
+	// Description:
+	//		deletes a node with following rules:
+	//		- if a node has no child, simply deletes itself.
+	//		- if a node has only left child, it bypasses to the left child.
+	//		- if a ndoe has only right child, it bypasses to the right child.
+	//		- if a node has both children, look for its successor / predecessor
+	//		  then replace the node with its successor / predecessor.
+	//		This method is overloaded to distinguish with the private method.
+	//************************************************************************
+	void BSTree::deleteNode(int key)
+	{
+		root = deleteNode(root, key);
+	}
+
+	//************************************************************************
+	// Name: minValue
+	// Parameter: none
+	// Returns: none
+	// Called by: public
+	// Description:
+	//		prints a successor of root.
+	//		if a successor does not exist, then prints a predecessor of root.
+	//		if neither successor and predecessor do not exist, prints root.
+	//************************************************************************
+	void BSTree::minValue()
+	{
+		print_node(minValueNode(root), "minVal");
+	}
+
+	//************************************************************************
+	// Name: height
+	// Parameter: int
+	// Returns: int
+	// Called by: public
+	// Description:
+	// 		returns the height of the tree.
+	//		This method is overloaded to distinguish with the private method.
+	//************************************************************************
+	int BSTree::height(int key)
+	{
+		if (key > 0)
+		{
+			//find node
+		}
+		else
+		{
+			return height(root);
+		}
 		return 0;
-}
-
-//************************************************************************
-// Name: printLevelOrder
-// Parameter: none
-// Returns: none
-// Called by: public
-// Description:
-//		Function to line by line print level order traversal a tree.
-//************************************************************************
-void BSTree::printLevelOrder()
-{
-	cout << "Begin Level Order===================\n";
-	int h = height(root);
-	int i;
-	for (i = 1; i <= h; i++)
-	{
-		printGivenLevel(root, i);
-		cout << "\n";
 	}
-	cout << "End Level Order===================\n";
-}
 
-//************************************************************************
-// Name: GraphVizOut
-// Parameter: string
-// Returns: none
-// Called by: public
-// Description:
-//		Recieves a filename to place the GraphViz data into.
-//		It then calls the above two graphviz methods to create a data file
-//		that can be used to visualize your expression tree.
-//************************************************************************
-void BSTree::GraphVizOut(string filename)
-{
-	ofstream VizOut;
-	VizOut.open(filename);
-	VizOut<<"Digraph G {\n";
-	GraphVizGetIds(root, VizOut);
-	GraphVizMakeConnections(root, VizOut);
-	VizOut<<"}\n";
-	VizOut.close();
-}
+	//************************************************************************
+	// Name: top
+	// Parameter: none
+	// Returns: int
+	// Called by: public
+	// Description:
+	// 		returns the data of the root.
+	//************************************************************************
+	int BSTree::top()
+	{
+		if (root)
+			return root->data;
+		else
+			return 0;
+	}
+
+	//************************************************************************
+	// Name: printLevelOrder
+	// Parameter: none
+	// Returns: none
+	// Called by: public
+	// Description:
+	//		Function to line by line print level order traversal a tree.
+	//************************************************************************
+	void BSTree::printLevelOrder()
+	{
+		cout << "Begin Level Order===================\n";
+		int h = height(root);
+		int i;
+		for (i = 1; i <= h; i++)
+		{
+			printGivenLevel(root, i);
+			cout << "\n";
+		}
+		cout << "End Level Order===================\n";
+	}
+
+	//************************************************************************
+	// Name: GraphVizOut
+	// Parameter: string
+	// Returns: none
+	// Called by: public
+	// Description:
+	//		Recieves a filename to place the GraphViz data into.
+	//		It then calls the above two graphviz methods to create a data file
+	//		that can be used to visualize your expression tree.
+	//************************************************************************
+	void BSTree::GraphVizOut(string filename)
+	{
+		ofstream VizOut;
+		VizOut.open(filename);
+		VizOut << "Digraph G {\n";
+		GraphVizGetIds(root, VizOut);
+		GraphVizMakeConnections(root, VizOut);
+		VizOut << "}\n";
+		VizOut.close();
+	}
