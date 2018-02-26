@@ -6,6 +6,7 @@
     Part 2: compare the efficiency of AVL Tree and BS Tree.
 
 # Files:
+    analysis.out
     AVLTree.cpp
     AVLTree.h
     BSTree.cpp
