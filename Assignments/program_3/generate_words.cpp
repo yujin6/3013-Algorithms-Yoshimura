@@ -1,24 +1,41 @@
+//****************************************************************************
+// Title: Crazy Word Creator
+// Files: AVLTree.cpp, AVLTree.h, BSTree.cpp, BSTree.h,
+//		  generate_words.cpp, tenthousandwords.txt, analyze_trees.cpp,
+//		  adjectives.txt, adverbs.txt, animals.txt, nouns.txt, verbs.txt
+// Semester: Spring 2018
+// Author: Yujin Yoshimura
+// Email: yujinyoshimura@gmail.com
+// Description: This program allows to do following. 
+//			  Part 1:
+//			  - creates 10000 crazy words without duplicates
+//			  - each crazy words consist of 3 word parts
+//			  - each crazy words consist of adjectives, nouns, animals
+//			  - created words are stored in a file
+//			  Part 2:
+//			  - compare the performance of AVL Tree and Binary Search Tree
+//			  - adjectives, adverbs, animals, nouns, verbs are inserted
+//			  - then, read the word parts from the list of 10000 crazy words
+//			  - search for each word parts in both trees
+//			  - then count the number of comparisons made
+//			  - at the same time, identify the type of the word part
+//			  - finally displays the summary
+//****************************************************************************
+
 #include "BSTree.h"
 #include "AVLTree.h"
 using namespace std;
 
 bool displayWarning();
-
 void initializeOutputFile();
-
 string pickRandom(string filename, int random);
-
 string pickAdjective();
-
 string pickNoun();
-
 string pickAnimal();
-
 bool isCreatedString(string crazy_word);
+void outputString(string crazy_word, int i);
 
-void exportString(string crazy_word, int i);
-
-int main() {
+int main1() {
 	string crazy_word;
 	string subject;
 	srand(2342);
@@ -37,7 +54,7 @@ int main() {
 		}
 		crazy_word = pickAdjective() + " " + pickAdjective() + " " + subject;
 		if (!isCreatedString(crazy_word)) {
-			exportString(crazy_word, i);
+			outputString(crazy_word, i);
 			i++;
 		}
 	}
@@ -46,6 +63,14 @@ int main() {
 	return 0;
 }
 
+//************************************************************************
+// Function Name:	displayWarning
+// Parameter:		none
+// Returns:			bool
+// Called by:		main
+// Description:
+// 		Prevents running the program by accident, as it takes time.
+//************************************************************************
 bool displayWarning() {
 	char z;
 	cout << "This program will generate 10000 crazy words." << endl;
@@ -60,6 +85,14 @@ bool displayWarning() {
 	}
 }
 
+//************************************************************************
+// Function Name:	initializeOutputFile
+// Parameter:		none
+// Returns:			none
+// Called by:		main
+// Description:
+// 		Opens output file and clear all data.
+//************************************************************************
 void initializeOutputFile() {
 	string filename = "tenthousandwords.txt";
 	ofstream file(filename, ios_base::trunc);
@@ -70,6 +103,15 @@ void initializeOutputFile() {
 	else { cout << "Unable to open file." << endl; }
 }
 
+//************************************************************************
+// Function Name:	pickRandom
+// Parameter:		string, int
+// Returns:			string
+// Called by:		pickAdjective, pickNoun, pickAnimal
+// Description:
+// 		Opens input file, traverse up to the line with given random number
+// 		then read that line as a random pick of a word.
+//************************************************************************
 string pickRandom(string filename, int random) {
 	filename = "word_files\\" + filename;
 	string line;
@@ -90,6 +132,14 @@ string pickRandom(string filename, int random) {
 	return "";
 }
 
+//************************************************************************
+// Function Name:	pickAdjective
+// Parameter:		none
+// Returns:			string
+// Called by:		main
+// Description:
+// 		Picks random adjective.
+//************************************************************************
 string pickAdjective() {
 	string filename = "adjectives.txt";
 	int number_of_lines = 15571;
@@ -98,6 +148,14 @@ string pickAdjective() {
 	return pickRandom(filename, random);
 }
 
+//************************************************************************
+// Function Name:	pickNoun
+// Parameter:		none
+// Returns:			string
+// Called by:		main
+// Description:
+// 		Picks random noun.
+//************************************************************************
 string pickNoun() {
 	string filename = "nouns.txt";
 	int number_of_lines = 53737;
@@ -106,6 +164,14 @@ string pickNoun() {
 	return pickRandom(filename, random);
 }
 
+//************************************************************************
+// Function Name:	pickAnimal
+// Parameter:		none
+// Returns:			string
+// Called by:		main
+// Description:
+// 		Picks random animal.
+//************************************************************************
 string pickAnimal() {
 	string filename = "animals.txt";
 	int number_of_lines = 235;
@@ -114,6 +180,14 @@ string pickAnimal() {
 	return pickRandom(filename, random);
 }
 
+//************************************************************************
+// Function Name:	isCreatedString
+// Parameter:		string
+// Returns:			bool
+// Called by:		main
+// Description:
+// 		Tells whether the crazy word has already been created or not.
+//************************************************************************
 bool isCreatedString(string crazy_word) {
 	string filename = "tenthousandwords.txt";
 	string line;
@@ -131,7 +205,15 @@ bool isCreatedString(string crazy_word) {
 	return false;
 }
 
-void exportString(string crazy_word, int i) {
+//************************************************************************
+// Function Name:	outputString
+// Parameter:		string, int
+// Returns:			none
+// Called by:		main
+// Description:
+// 		Opens output file by append and write the crazy word out.
+//************************************************************************
+void outputString(string crazy_word, int i) {
 	string filename = "tenthousandwords.txt";
 	ofstream file(filename, ios_base::app);
 
