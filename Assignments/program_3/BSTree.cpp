@@ -76,7 +76,9 @@ int BSTree::count()
 void BSTree::insert(string word, string type)
 {
 	node *temp = new node(word, type);
-	insert(root, temp);
+	if (search(word, type) == 0) {
+		insert(root, temp);
+	}
 }
 
 //************************************************************************

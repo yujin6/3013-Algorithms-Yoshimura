@@ -68,17 +68,19 @@ AVLTree::~AVLTree() {
 //************************************************************************
 void AVLTree::insert(string word, string type) {
 	node *newNode;
-
-	newNode = new node(word, type);
-	insert(root, newNode);
-	computeAvlValues(root);
+	
+	if (search(word) == 0) {
+		newNode = new node(word, type);
+		insert(root, newNode);
+		computeAvlValues(root);
+	}
 }
 
 //************************************************************************
 // Method Name:	search
 // Parameter:	string to look for
 // Returns:		int
-// Called by:	public
+// Called by:	public, insert
 // Description:
 //		Traverses a binary tree looking for a node with a key value,
 //		then returns the number of comparisons made.

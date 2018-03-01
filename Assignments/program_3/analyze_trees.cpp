@@ -30,7 +30,7 @@ using namespace std;
 bool displayWarningMessage();
 string setFilename();
 void loadAll(AVLTree &avl, BSTree &bs);
-int load(AVLTree &avl, BSTree &bs, string filename);
+int load(AVLTree &avl, BSTree &bs, string type);
 void outputString(string line, int count, ofstream &file);
 void outputSummary(int avl, int bs, int adj, int adv, int animal, int noun, int verb);
 
@@ -93,7 +93,7 @@ int main() {
 bool displayWarningMessage() {
 	char z;
 	cout << "This program will analyze word parts of 10000 crazy words." << endl;
-	cout << "It may take about 4 hours, depending on your machine." << endl;
+	cout << "It may take about 1 hour, depending on your machine." << endl;
 	cout << "Are you sure you want to run this program? [Y/N]" << endl;
 	cin >> z;
 	if (z == 'Y' || z == 'y') {
@@ -154,14 +154,14 @@ void loadAll(AVLTree &avl, BSTree &bs) {
 //************************************************************************
 int load(AVLTree &avl, BSTree &bs, string type) {
 	string filename = "word_files\\" + type + "s.txt";
-	string line;
+	string word;
 	ifstream file(filename);
 	int i = 0;
 
 	if (file.is_open()) {
-		while (getline(file, line)) {
-			avl.insert(line, type);
-			bs.insert(line, type);
+		while (file >> word) {
+			avl.insert(word, type);
+			bs.insert(word, type);
 			i++;
 			if (i % 1000 == 0) {
 				cout << ".";
