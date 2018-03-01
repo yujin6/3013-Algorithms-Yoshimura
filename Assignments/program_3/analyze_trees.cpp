@@ -27,14 +27,15 @@
 #include <ctime>
 using namespace std;
 
-bool displayWarningMessage();
-string setFilename();
+//bool displayWarningMessage();
+//string setFilename();
+bool checkArgument(int argc);
 void loadAll(AVLTree &avl, BSTree &bs);
 int load(AVLTree &avl, BSTree &bs, string type);
 void outputString(string line, int count, ofstream &file);
 void outputSummary(int avl, int bs, int adj, int adv, int animal, int noun, int verb);
 
-int main() {
+int main(int argc, char **argv) {
 	AVLTree avl;
 	BSTree bs;
 	string filename;
@@ -47,11 +48,15 @@ int main() {
 	int noun_count = 0;
 	int verb_count = 0;
 	
-	if (!displayWarningMessage()) {
-		return 0;
+	//if (!displayWarningMessage()) {
+	//	return 0;
+	//}
+	//filename = setFilename();
+
+	if (!checkArgument(argc)) {
+		exit(0);
 	}
-	
-	filename = setFilename();
+	filename = argv[1];
 
 	loadAll(avl, bs);
 
@@ -82,50 +87,71 @@ int main() {
 	return 0;
 }
 
+////************************************************************************
+//// Function Name:	displayWarningMessage
+//// Parameter:		none
+//// Returns:			bool
+//// Called by:		main
+//// Description:
+//// 		Prevents running the program by accident, as it takes time.
+////************************************************************************
+//bool displayWarningMessage() {
+//	char z;
+//	cout << "This program will analyze word parts of 10000 crazy words." << endl;
+//	cout << "It may take about 1 hour, depending on your machine." << endl;
+//	cout << "Are you sure you want to run this program? [Y/N]" << endl;
+//	cin >> z;
+//	if (z == 'Y' || z == 'y') {
+//		return true;
+//	}
+//	else {
+//		return false;
+//	}
+//}
+//
+////************************************************************************
+//// Function Name:	setFilename
+//// Parameter:		none
+//// Returns:			string
+//// Called by:		main
+//// Description:
+//// 		Allows user to choose an input file or use default input file.
+////************************************************************************
+//string setFilename() {
+//	char z;
+//	string filename;
+//
+//	cout << "Do you want to use a default input file for the 10000 crazy words? [Y/N]" << endl;
+//	cin >> z;
+//	if (z == 'Y' || z == 'y') {
+//		filename = "tenthousandwords.txt";
+//	}
+//	else {
+//		cout << "Please enter the filename." << endl;
+//		cin >> filename;
+//	}
+//	return filename;
+//}
+
 //************************************************************************
-// Function Name:	displayWarningMessage
-// Parameter:		none
-// Returns:			bool
+// Function Name:	loadAll
+// Parameter:		reference to AVLTree, reference to BSTree
+// Returns:			none
 // Called by:		main
 // Description:
-// 		Prevents running the program by accident, as it takes time.
+// 		Count command line args and make sure a file name is on the line
+// 		to run this file.
 //************************************************************************
-bool displayWarningMessage() {
-	char z;
-	cout << "This program will analyze word parts of 10000 crazy words." << endl;
-	cout << "It may take about 1 hour, depending on your machine." << endl;
-	cout << "Are you sure you want to run this program? [Y/N]" << endl;
-	cin >> z;
-	if (z == 'Y' || z == 'y') {
-		return true;
-	}
-	else {
+bool checkArgument(int argc) {
+	if (argc < 2) {
+		cout << "You need an input file!\n";
+		cout << "Usage: comparison filename.txt\n";
+		system("pause");
 		return false;
 	}
-}
-
-//************************************************************************
-// Function Name:	setFilename
-// Parameter:		none
-// Returns:			string
-// Called by:		main
-// Description:
-// 		Allows user to choose an input file or use default input file.
-//************************************************************************
-string setFilename() {
-	char z;
-	string filename;
-
-	cout << "Do you want to use a default input file for the 10000 crazy words? [Y/N]" << endl;
-	cin >> z;
-	if (z == 'Y' || z == 'y') {
-		filename = "tenthousandwords.txt";
-	}
 	else {
-		cout << "Please enter the filename." << endl;
-		cin >> filename;
+		return true;
 	}
-	return filename;
 }
 
 //************************************************************************
