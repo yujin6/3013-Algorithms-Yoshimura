@@ -32,7 +32,7 @@ using namespace std;
 bool checkArgument(int argc);
 void loadAll(AVLTree &avl, BSTree &bs);
 int load(AVLTree &avl, BSTree &bs, string type);
-void outputString(string line, int count, ofstream &file);
+void outputString(string line, int count, ofstream &myfile);
 void outputSummary(int avl, int bs, int adj, int adv, int animal, int noun, int verb);
 
 int main(int argc, char **argv) {
@@ -179,7 +179,7 @@ void loadAll(AVLTree &avl, BSTree &bs) {
 // 		Loads words from one input file into both AVL tree and BS tree.
 //************************************************************************
 int load(AVLTree &avl, BSTree &bs, string type) {
-	string filename = "word_files\\" + type + "s.txt";
+	string filename = "word_files/" + type + "s.txt";
 	string word;
 	ifstream file(filename);
 	int i = 0;
@@ -209,9 +209,9 @@ int load(AVLTree &avl, BSTree &bs, string type) {
 // 		Opens output file and writes out summary.
 // 		Displays the summary to the console at the same time.
 //************************************************************************
-void outputString(string line, int count, ofstream &file) {
+void outputString(string line, int count, ofstream &myfile) {
 	cout << line + to_string(count) + "\n";
-	file << line + to_string(count) + "\n";
+	myfile << line + to_string(count) + "\n";
 }
 
 //************************************************************************
@@ -225,18 +225,18 @@ void outputString(string line, int count, ofstream &file) {
 //************************************************************************
 void outputSummary(int avl, int bs, int adj, int adv, int animal, int noun, int verb) {
 	string filename = "analysis.out";
-	ofstream file(filename);
+	ofstream myfile(filename);
 
-	if (file.is_open()) {
+	if (myfile.is_open()) {
 		cout << endl << "Summary:" << endl;
-		outputString("BST Comparisons = ", bs, file);
-		outputString("AVL Comparisons = ", avl, file);
-		outputString("Number of Adjectives = ", adj, file);
-		outputString("Number of Adverbs = ", adv, file);
-		outputString("Number of Animals = ", animal, file);
-		outputString("Number of Nouns = ", noun, file);
-		outputString("Number of Verbs = ", verb, file);
-		file.close();
+		outputString("BST Comparisons = ", bs, myfile);
+		outputString("AVL Comparisons = ", avl, myfile);
+		outputString("Number of Adjectives = ", adj, myfile);
+		outputString("Number of Adverbs = ", adv, myfile);
+		outputString("Number of Animals = ", animal, myfile);
+		outputString("Number of Nouns = ", noun, myfile);
+		outputString("Number of Verbs = ", verb, myfile);
+		myfile.close();
 	}
 	else { cout << "Unable to open file." << endl; }
 

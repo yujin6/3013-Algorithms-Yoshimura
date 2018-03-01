@@ -151,7 +151,7 @@ void loadAll(vector<string> &adjectives, vector<string> &animals, vector<string>
 // 		Loads words from one input file into vector of string.
 //************************************************************************
 void load(vector<string> &v, string type) {
-	string filename = "word_files\\" + type + "s.txt";
+	string filename = "word_files/" + type + "s.txt";
 	string word;
 	ifstream file(filename);
 	int i = 0;
